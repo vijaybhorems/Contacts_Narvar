@@ -13,9 +13,17 @@ public interface ContactService {
 
     Contact updateContact(Contact contact);
 
-    Contact getContactByName(String name);
+    List<Contact> getContactsByName(String name);
 
-    Contact getContactByEmail(String email);
+    List<Contact> getContactsByEmail(String email);
 
     List<Contact> getContactsByProfession(String profession);
+
+    List<Contact> getContactsByNameAndEmail(String name, String email);
+
+    List<Contact> getContactsByNameAndProfession(String name, String profession);
+
+    List<Contact> getContactsByEmailAndProfession(String email, String profession);
+
+    List<Contact> getContactsByNameAndEmailAndProfession(String name, String email, String profession);
 }

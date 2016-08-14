@@ -8,21 +8,16 @@ server:
 
 spring:
   jpa:
-    show-sql: false
+    show-sql: true
     properties:
       hibernate:
-        format_sql: false
-        generate_statistics: true
+        format_sql: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
         default_schema: contacts
     hibernate:
       ddl-auto: none
 
 flyway:
-  url: jdbc:postgresql://localhost:5432/contacts
-  user: contacts_admin
-  password: password
-  baseline-on-migrate: true
   validate-on-migrate: false
   schemas: contacts
 
@@ -54,5 +49,7 @@ endpoints:
 logging:
   file: logs/contacts.log
 
-security.user.name: user
-security.user.password: password
+security:
+  user:
+    name: user
+    password: password

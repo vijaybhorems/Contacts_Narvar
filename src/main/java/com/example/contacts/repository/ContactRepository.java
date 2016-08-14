@@ -9,11 +9,19 @@ import java.util.List;
 
 @Repository
 public interface ContactRepository extends CrudRepository<Contact, String> {
-    Contact findByName(@Param("name") String name);
+    List<Contact> findByName(@Param("name") String name);
 
-    Contact findByEmail(@Param("email") String email);
+    List<Contact> findByEmail(@Param("email") String email);
 
     List<Contact> findByProfession(@Param("profession") String profession);
+
+    List<Contact> findByNameAndEmail(@Param("name") String name, @Param("email") String email);
+
+    List<Contact> findByNameAndProfession(@Param("name") String name, @Param("profession") String profession);
+
+    List<Contact> findByEmailAndProfession(@Param("email") String email, @Param("profession") String profession);
+
+    List<Contact> findByNameAndEmailAndProfession(@Param("name") String name, @Param("email") String email, @Param("profession") String profession);
 
     Contact findById(@Param("id") Integer id);
 }

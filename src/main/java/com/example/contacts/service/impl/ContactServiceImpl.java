@@ -38,20 +38,44 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
-    public Contact getContactByName(String name) {
-        Contact contact = contactRepository.findByName(name);
-        return contact;
+    public List<Contact> getContactsByName(String name) {
+        List<Contact> contacts = contactRepository.findByName(name);
+        return contacts;
     }
 
     @Override
-    public Contact getContactByEmail(String email) {
-        Contact contact = contactRepository.findByEmail(email);
-        return contact;
+    public List<Contact> getContactsByEmail(String email) {
+        List<Contact> contacts = contactRepository.findByEmail(email);
+        return contacts;
     }
 
     @Override
     public List<Contact> getContactsByProfession(String profession) {
         List<Contact> contacts = contactRepository.findByProfession(profession);
+        return contacts;
+    }
+
+    @Override
+    public List<Contact> getContactsByNameAndEmail(String name, String email) {
+        List<Contact> contacts = contactRepository.findByNameAndEmail(name, email);
+        return contacts;
+    }
+
+    @Override
+    public List<Contact> getContactsByNameAndProfession(String name, String profession) {
+        List<Contact> contacts = contactRepository.findByNameAndProfession(name, profession);
+        return contacts;
+    }
+
+    @Override
+    public List<Contact> getContactsByEmailAndProfession(String email, String profession) {
+        List<Contact> contacts = contactRepository.findByEmailAndProfession(email, profession);
+        return contacts;
+    }
+
+    @Override
+    public List<Contact> getContactsByNameAndEmailAndProfession(String name, String email, String profession) {
+        List<Contact> contacts = contactRepository.findByNameAndEmailAndProfession(name, email, profession);
         return contacts;
     }
 }

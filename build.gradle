@@ -67,14 +67,14 @@ test {
     outputs.dir snippetsDir
 }
 
-bootRun {
+/*bootRun {
     def map = [:]
     map["spring.datasource.url"] = "jdbc:postgresql://localhost:5432/contacts"
     map["spring.datasource.username"] = "contacts_admin"
     map["spring.datasource.password"] = "password"
     map["spring.datasource.driver-class-name"] = "org.postgresql.Driver"
     systemProperties = map;
-}
+}*/
 
 eclipse {
 	classpath {

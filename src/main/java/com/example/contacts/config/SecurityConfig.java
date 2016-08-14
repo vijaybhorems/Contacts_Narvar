@@ -18,8 +18,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers(HttpMethod.PUT, "/contacts/**").authenticated()
             .antMatchers(HttpMethod.DELETE, "/contacts/**").authenticated()
             .anyRequest().permitAll()
+            .antMatchers("/console/**").permitAll()
             .and()
             .httpBasic().and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.headers().frameOptions().disable();
     }
 }
