@@ -1,0 +1,84 @@
+buildscript {
+	ext {
+		springBootVersion = '1.4.0.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+
+jar {
+	baseName = 'contacts'
+	version = '0.0.1-SNAPSHOT'
+}
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+ext {
+    snippetsDir = file('build/generated-snippets')
+    springRestdocsVersion = '1.0.1.RELEASE'
+}
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-hateoas')
+	compile('org.springframework.boot:spring-boot-starter-web')
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile("org.springframework.boot:spring-boot-starter-jdbc")
+    compile("org.springframework.boot:spring-boot-starter-security")
+    compile("commons-io:commons-io:$apacheCommonsIO")
+    compile("com.h2database:h2:$h2Version")
+    compile("org.postgresql:postgresql:$postgresVersion")
+    compile("org.flywaydb:flyway-core")
+    compile("org.apache.httpcomponents:httpclient:$httpComponents")
+    compile("org.apache.httpcomponents:httpmime:$httpComponents")
+    compile("com.rometools:rome:$romeToolsVersion")
+    compile("com.google.guava:guava:$guavaVersion")
+    compile("commons-fileupload:commons-fileupload:$fileUpload")
+    compile("org.apache.commons:commons-lang3:$apacheCommonsLang3")
+
+    testCompile("org.hamcrest:hamcrest-core:$hamcrestVersion")
+    testCompile("com.jayway.restassured:rest-assured:$jaywayVersion")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    testCompile("org.springframework.restdocs:spring-restdocs-mockmvc:1.1.1.RELEASE")
+    testCompile("com.jayway.jsonpath:json-path:$jsonPath")
+    testCompile("org.springframework.security:spring-security-jwt:1.0.3.RELEASE")
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.13'
+}
+
+defaultTasks 'build'
+
+test {
+    outputs.dir snippetsDir
+}
+
+bootRun {
+    def map = [:]
+    map["spring.datasource.url"] = "jdbc:postgresql://localhost:5432/contacts"
+    map["spring.datasource.username"] = "contacts_admin"
+    map["spring.datasource.password"] = "password"
+    map["spring.datasource.driver-class-name"] = "org.postgresql.Driver"
+    systemProperties = map;
+}
+
+eclipse {
+	classpath {
+		 containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
+		 containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8'
+	}
+}

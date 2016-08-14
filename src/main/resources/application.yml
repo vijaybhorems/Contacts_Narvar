@@ -1,0 +1,58 @@
+server:
+  contextPath: /directory
+  port: ${PORT:8484}
+  tomcat:
+    access-log-pattern:  "%{yyyy-MM-dd HH:mm:ss.SSSZ}t %a %A '%{User-Agent}i' [%{Leap-Request-Context}o] %r %s %b %D"
+    access-log-enabled: true
+    basedir: logs
+
+spring:
+  jpa:
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+        generate_statistics: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        default_schema: contacts
+    hibernate:
+      ddl-auto: none
+
+flyway:
+  url: jdbc:postgresql://localhost:5432/contacts
+  user: contacts_admin
+  password: password
+  baseline-on-migrate: true
+  validate-on-migrate: false
+  schemas: contacts
+
+management:
+  context-path: '/manage'
+  security:
+    enabled: true
+
+endpoints:
+  info:
+    id: info
+    enabled: true
+    sensitive: true
+  health:
+    id: health
+    enabled: true
+    sensitive: true
+  logfile:
+    id: logfile
+    enabled: true
+    sensitive: true
+  metrics:
+    id: metrics
+    enabled: true
+    sensitive: true
+    filter:
+      enabled: true
+
+logging:
+  file: logs/contacts.log
+
+security.user.name: user
+security.user.password: password
