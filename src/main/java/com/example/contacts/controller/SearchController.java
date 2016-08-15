@@ -39,9 +39,7 @@ public class SearchController {
     HttpEntity<?> queryContacts(@RequestParam(value = "name", required = false) String name,
                                 @RequestParam(value = "email", required = false) String email,
                                 @RequestParam(value = "profession", required = false) String profession) throws Throwable {
-        if (StringUtils.isEmpty(name) && StringUtils.isEmpty(email) && StringUtils.isEmpty(profession)) {
-            return getContacts();
-        } else if (StringUtils.isEmpty(email) && StringUtils.isEmpty(profession)) {
+        if (StringUtils.isEmpty(email) && StringUtils.isEmpty(profession)) {
             return getContactsByName(name);
         } else if (StringUtils.isEmpty(name) && StringUtils.isEmpty(profession)) {
             return getContactByEmail(email);
@@ -58,18 +56,6 @@ public class SearchController {
         }
 
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-    private HttpEntity<?> getContacts() {
-        List<com.example.contacts.domain.Contact> contactList = contactService.getAllContacts();
-        List<Resource<Contact>> temp = new ArrayList<>();
-
-        for (com.example.contacts.domain.Contact contact : contactList) {
-            Resource<Contact> contactResource = resourceService.getContactResource(contact.getId(), resourceService.getContactMediaType(contact), false);
-            temp.add(contactResource);
-        }
-        LinkBuilder lb = entityLinks.linkFor(Contact.class);
-        return new ResponseEntity<>(new Resources<>(temp, lb.withSelfRel()), HttpStatus.OK);
     }
 
     private HttpEntity<?> getContactsByName(String name) {
