@@ -6,7 +6,6 @@ The default persistence is provided by inbuilt H2 database. The application is e
 
 The Contacts REST server provides following REST operations:
 1. GET /contacts
-2. GET /contacts/{id}
 2. POST /contacts
 3. PUT /contacts/{id}
 4. GET /search?
@@ -28,7 +27,7 @@ The content negotiation format is: application/hal+json
         "profession": "Engineer",
         "_links": {
           "self": {
-            "href": "http://localhost:8484/directory/search/1"
+            "href": "http://localhost:8484/directory/contacts/1"
           }
         }
       },
@@ -39,18 +38,7 @@ The content negotiation format is: application/hal+json
         "profession": "Legal Advisor",
         "_links": {
           "self": {
-            "href": "http://localhost:8484/directory/search/2"
-          }
-        }
-      },
-      {
-        "id": 3,
-        "name": "Vishakha",
-        "email": "vishakha@example.com",
-        "profession": "SEO",
-        "_links": {
-          "self": {
-            "href": "http://localhost:8484/directory/search/3"
+            "href": "http://localhost:8484/directory/contacts/2"
           }
         }
       }
@@ -58,14 +46,34 @@ The content negotiation format is: application/hal+json
   },
   "_links": {
     "self": {
-      "href": "http://localhost:8484/directory/search"
+      "href": "http://localhost:8484/directory/contacts"
     }
   }
 }
 
-2. GET http://localhost:8484/directory/contacts/{id}:
-    User can navigate to this end point through one of the contact objects response to GET /contacts through its self link.
-3. POST http://localhost:8484/directory/contacts:
+2. POST http://localhost:8484/directory/contacts:
+    This is a protected endpoint. So in a REST client, update Authorization header in request (enter username: "user" and password: "password"). Set Content-Type: application/json.
+
+    Sample payload:
+    {
+    	"name": "Alex",
+    	"email": "alex@example.com",
+    	"profession": "Doctor"
+    }
+    
+3. PUT http://localhost:8484/directory/contacts/2:
+    This is another protected endpoint. Similar to POST request, update Authorization header in request (enter username: "user" and password: "password"). In case, you have entered these credential already, brower/REST client will cache it for you. Set Content-Type: application/json.
+
+    Sample payload:
+    {
+    	"name": "Jane",
+    	"email": "jane@example.com",
+    	"profession": "Librarian"
+    }
+    
+4. GET http://localhost:8484/directory/search?<<attribute1>>=<<value>>[&<<attribute2>>=<<value>>]
+    The search end point provide search on combinations of name, email and profession.
+
 
 In case you want to run against Postgres, enable following properties in build.gradle file:
 
@@ -78,4 +86,4 @@ bootRun {
     systemProperties = map;
 }
 
-Create user contacts_admin and create a contacts database with contacts_admin as owner.
+Create user "contacts_admin" with password "password" and create a "contacts" database with "contacts_admin" user as owner.
