@@ -22,11 +22,16 @@ public class DefaultExceptionMapper {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public void processValidationError(MethodArgumentNotValidException ex) {
+    @ResponseBody
+    public ErrorMessage processValidationError(MethodArgumentNotValidException ex) {
         BindingResult result = ex.getBindingResult();
         FieldError error = result.getFieldError();
         String field = error.getField();
         logger.error("Validation error on field " + field, ex);
+        ErrorMessage msg = new ErrorMessage();
+        msg.setError("Validation failed for field: " + field);
+        msg.setDescription(ex.getMessage());
+        return msg;
     }
 
     @ExceptionHandler(IllegalArgumentException.class)

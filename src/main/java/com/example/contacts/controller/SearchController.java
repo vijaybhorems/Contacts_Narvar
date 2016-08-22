@@ -21,7 +21,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/search", produces = {MediaTypes.HAL_JSON_VALUE})
-@ExposesResourceFor(Contact.class)
 public class SearchController {
 
     private static final Logger logger = LoggerFactory.getLogger(SearchController.class);

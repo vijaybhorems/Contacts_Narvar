@@ -1,6 +1,7 @@
 package com.example.contacts.repository;
 
 import com.example.contacts.domain.Contact;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -9,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface ContactRepository extends CrudRepository<Contact, String> {
-    List<Contact> findByName(@Param("name") String name);
+    List<Contact> findByNameContaining(@Param("name") String name);
 
     List<Contact> findByEmail(@Param("email") String email);
 

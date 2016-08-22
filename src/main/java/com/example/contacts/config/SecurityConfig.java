@@ -23,5 +23,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .httpBasic().and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.headers().frameOptions().disable();
+        http.headers().cacheControl().disable();
     }
 }

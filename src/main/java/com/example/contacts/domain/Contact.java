@@ -1,5 +1,6 @@
 package com.example.contacts.domain;
 
+import org.hibernate.validator.constraints.Email;
 import org.springframework.hateoas.Identifiable;
 
 import javax.persistence.*;
@@ -11,6 +12,9 @@ public class Contact implements Identifiable<Integer>, Serializable {
     public Contact() {
     }
 
+    @Version
+    private Integer version;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -19,6 +23,7 @@ public class Contact implements Identifiable<Integer>, Serializable {
     private String name;
 
     @NotNull
+    @Email
     private String email;
 
     private String profession;
@@ -54,5 +59,13 @@ public class Contact implements Identifiable<Integer>, Serializable {
 
     public void setProfession(String profession) {
         this.profession = profession;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 }

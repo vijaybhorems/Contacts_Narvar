@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +50,7 @@ public class ContactController {
 
     @Transactional
     @RequestMapping(method = RequestMethod.POST)
-    public HttpEntity<Resource<Contact>> createContact(@RequestBody Contact contact) throws Throwable {
+    public HttpEntity<Resource<Contact>> createContact(@RequestBody @Valid Contact contact) throws Throwable {
 
         if (StringUtils.isEmpty(contact.getName())) {
             if (logger.isDebugEnabled()) {
@@ -81,7 +82,7 @@ public class ContactController {
 
     @Transactional
     @RequestMapping(method = RequestMethod.PUT, value = "/{contactId}")
-    public HttpEntity<?> updateContact(@PathVariable String contactId, @RequestBody Contact contact) throws Throwable {
+    public HttpEntity<?> updateContact(@PathVariable String contactId, @RequestBody @Valid Contact contact) throws Throwable {
 
         if (StringUtils.isEmpty(contact.getName())) {
             if (logger.isDebugEnabled()) {

@@ -39,7 +39,7 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public List<Contact> getContactsByName(String name) {
-        List<Contact> contacts = contactRepository.findByName(name);
+        List<Contact> contacts = contactRepository.findByNameContaining(name);
         return contacts;
     }
 

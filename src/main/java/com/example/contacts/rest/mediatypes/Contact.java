@@ -1,6 +1,7 @@
 package com.example.contacts.rest.mediatypes;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.hibernate.validator.constraints.Email;
 import org.springframework.hateoas.Identifiable;
 import org.springframework.hateoas.core.Relation;
 
@@ -12,8 +13,10 @@ public class Contact implements Identifiable<Integer> {
     @NotNull
     private String name;
     @NotNull
+    @Email
     private String email;
     private String profession;
+    private Integer version;
 
     public Contact() {
     }
@@ -53,5 +56,13 @@ public class Contact implements Identifiable<Integer> {
     @Override
     public String toString() {
         return ReflectionToStringBuilder.reflectionToString(this);
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 }
